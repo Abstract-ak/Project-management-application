@@ -18,10 +18,27 @@ function App() {
     });
   }
 
+  // onAdd se jo value aaya yaha iska parameter yaha paas kiya
+  // function me. fir value set kiya as an object, old project ko rakhte hua.
+  function handleAddProject(projectData) {
+    setProjectsState((prevState) => {
+      const newProject = {
+        ...projectData,
+        id: Math.random(),
+      };
+
+      return {
+        ...prevState,
+        projects: [...prevState.projects, newProject],
+      };
+    });
+  }
+
+  console.log(projectsState);
   let content;
 
   if (projectsState.selectedProjectID === null) {
-    content = <NewProject />;
+    content = <NewProject onAdd={handleAddProject} />;
   } else if (projectsState.selectedProjectID === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
